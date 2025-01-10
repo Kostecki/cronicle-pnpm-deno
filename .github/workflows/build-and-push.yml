@@ -18,6 +18,13 @@ jobs:
       packages: write
 
     steps:
+      - name: Convert repository name to lowercase
+        id: lowercase
+        run: |
+          IMAGE_NAME=${{ env.IMAGE_NAME }}
+          IMAGE_NAME_LOWER=$(echo "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
+          echo "lowercase_image_name=$IMAGE_NAME_LOWER" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -42,5 +49,5 @@ jobs:
           push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.lowercase_image_name }}:latest
           labels: ${{ steps.meta.outputs.labels }}
