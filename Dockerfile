@@ -1,11 +1,16 @@
 FROM ghcr.io/soulteary/cronicle:latest
 
-# Install Curl and Deno
-RUN apk add --no-cache deno
+# Install dependencies
+RUN apk add --no-cache curl bash deno
 
-# Install pnpm
-RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" sh - && \
-    echo 'export PATH="/root/.local/share/pnpm:$PATH"' >> ~/.shrc
+# Install Volta
+ENV VOLTA_HOME="/root/.volta"
+ENV PATH="$VOLTA_HOME/bin:$PATH"
 
-# Set the PATH globally for subsequent layers
-ENV PATH="/root/.local/share/pnpm:$PATH"
+RUN curl https://get.volta.sh | bash
+
+# Install pnpm via Volta (better than curl script)
+RUN volta install node@20 && volta install pnpm
+
+# Optional: install tsx globally
+RUN volta install tsx
