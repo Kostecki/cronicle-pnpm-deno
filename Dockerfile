@@ -9,8 +9,8 @@ ENV PATH="$VOLTA_HOME/bin:$PATH"
 
 RUN curl https://get.volta.sh | bash
 
-# Install pnpm via Volta (better than curl script)
-RUN volta install node@20 && volta install pnpm
+# Install pnpm via Volta
+RUN volta install node@22 && volta install pnpm
 
 # Optional: install tsx globally
 RUN volta install tsx
