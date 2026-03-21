@@ -1,2 +1,2 @@
-# cronicle-pnpm-deno
-Cronicle, in Docker, with pnpm and Deno
+# cronicle-pnpm-tsx
+[Cronicle Edge](https://github.com/cronicle-edge/cronicle-edge), in Docker, with pnpm and tsx
